@@ -194,7 +194,15 @@ static cell_t TinyXml_FirstChild(IPluginContext *pCtx, const cell_t *params)
 		return 0;
 	}
 
-	TiXmlNode *child = x->FirstChild();
+	char *search;
+	pCtx->LocalToString(params[2], &search);
+	TiXmlNode *child;
+	if(strcmp(search, "") == 0) {
+		child = x->FirstChild();
+	} else {
+		child = x->FirstChild(search);
+	}
+
 	if(child == NULL) {
 		return 0;
 	} else {
@@ -223,7 +231,15 @@ static cell_t TinyXml_FirstChildElement(IPluginContext *pCtx, const cell_t *para
 		return 0;
 	}
 
-	TiXmlNode *child = x->FirstChildElement();
+	char *search;
+	pCtx->LocalToString(params[2], &search);
+	TiXmlNode *child;
+	if(strcmp(search, "") == 0) {
+		child = x->FirstChildElement();
+	} else {
+		child = x->FirstChildElement(search);
+	}
+	
 	if(child == NULL) {
 		return 0;
 	} else {
@@ -252,7 +268,15 @@ static cell_t TinyXml_NextSibling(IPluginContext *pCtx, const cell_t *params)
 		return 0;
 	}
 
-	TiXmlNode *sibling = x->NextSibling();
+	char *search;
+	pCtx->LocalToString(params[2], &search);
+	TiXmlNode *sibling;
+	if(strcmp(search, "") == 0) {
+		sibling = x->NextSibling();
+	} else {
+		sibling = x->NextSibling(search);
+	}
+
 	if(sibling == NULL) {
 		return 0;
 	} else {
@@ -281,7 +305,15 @@ static cell_t TinyXml_NextSiblingElement(IPluginContext *pCtx, const cell_t *par
 		return 0;
 	}
 
-	TiXmlNode *sibling = x->NextSiblingElement();
+	char *search;
+	pCtx->LocalToString(params[2], &search);
+	TiXmlNode *sibling;
+	if(strcmp(search, "") == 0) {
+		sibling = x->NextSiblingElement();
+	} else {
+		sibling = x->NextSiblingElement(search);
+	}
+
 	if(sibling == NULL) {
 		return 0;
 	} else {
@@ -792,7 +824,7 @@ static cell_t TinyXml_Standalone(IPluginContext *pCtx, const cell_t *params) {
 	return 0;	
 }
 
-static cell_t TinyXml_CDATA(IPluginContext *pCtx, const cell_t *params) {
+static cell_t TinyXml_IsCDATA(IPluginContext *pCtx, const cell_t *params) {
 	Handle_t hndl = static_cast<Handle_t>(params[1]);
 	HandleError err;
 	HandleSecurity sec;
@@ -911,7 +943,7 @@ const sp_nativeinfo_t tinyxml_natives[] =
 	//Others
 	{"TinyXml_CreateText",	TinyXml_CreateText},
 	{"TinyXml_CreateComment",	TinyXml_CreateComment},
-	{"TinyXml_IsCDATA",	TinyXml_CDATA},
+	{"TinyXml_IsCDATA",	TinyXml_IsCDATA},
 
 	{NULL,			NULL},
 };
