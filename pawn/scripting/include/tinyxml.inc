@@ -48,6 +48,7 @@ native TinyXml_Version(Handle:declaration, String:dest[], length);
 native TinyXml_Encoding(Handle:declaration, String:dest[], length);
 native TinyXml_Standalone(Handle:declaration, String:dest[], length);
 
+native bool:TinyXml_IsCDATA(Handle:text);
 
 /**
  * Do not edit below this line!

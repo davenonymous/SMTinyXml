@@ -792,6 +792,35 @@ static cell_t TinyXml_Standalone(IPluginContext *pCtx, const cell_t *params) {
 	return 0;	
 }
 
+static cell_t TinyXml_CDATA(IPluginContext *pCtx, const cell_t *params) {
+	Handle_t hndl = static_cast<Handle_t>(params[1]);
+	HandleError err;
+	HandleSecurity sec;
+	sec.pOwner = NULL;
+	sec.pIdentity = myself->GetIdentity();
+
+	TiXmlNode *x;
+	
+	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
+	{
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
+	}
+
+	if (!x)
+	{
+		pCtx->ThrowNativeError("TinyXml not found\n");
+		return 0;
+	}
+
+	if(x->Type() == TiXmlNode::TINYXML_TEXT) {
+		TiXmlText *y = x->ToText();		
+		return y->CDATA();
+	}
+
+	return 0;	
+}
+
+
 static cell_t TinyXml_Parse(IPluginContext *pCtx, const cell_t *params)
 {
 	Handle_t hndl = static_cast<Handle_t>(params[1]);
@@ -882,6 +911,7 @@ const sp_nativeinfo_t tinyxml_natives[] =
 	//Others
 	{"TinyXml_CreateText",	TinyXml_CreateText},
 	{"TinyXml_CreateComment",	TinyXml_CreateComment},
+	{"TinyXml_IsCDATA",	TinyXml_CDATA},
 
 	{NULL,			NULL},
 };
