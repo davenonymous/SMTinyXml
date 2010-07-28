@@ -220,12 +220,12 @@ static cell_t TinyXml_FirstChildElement(IPluginContext *pCtx, const cell_t *para
 
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
-		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
 	}
 
 	if (!x)
 	{
-		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		pCtx->ThrowNativeError("TinyXml not found\n");
 		return 0;
 	}
 
@@ -351,12 +351,12 @@ static cell_t TinyXml_FirstAttribute(IPluginContext *pCtx, const cell_t *params)
 
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
-		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
 	}
 
 	if (!x)
 	{
-		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		pCtx->ThrowNativeError("TinyXml not found\n");
 		return 0;
 	}
 
@@ -413,12 +413,12 @@ static cell_t TinyXml_GetText(IPluginContext *pCtx, const cell_t *params) {
 
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
-		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
 	}
 
 	if (!x)
 	{
-		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		pCtx->ThrowNativeError("TinyXml not found\n");
 		return 0;
 	}
 
@@ -446,12 +446,12 @@ static cell_t TinyXml_Type(IPluginContext *pCtx, const cell_t *params) {
 
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
-		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
 	}
 
 	if (!x)
 	{
-		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		pCtx->ThrowNativeError("TinyXml not found\n");
 		return 0;
 	}
 
@@ -469,12 +469,12 @@ static cell_t TinyXml_SetAttribute(IPluginContext *pCtx, const cell_t *params) {
 	
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
-		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
 	}
 
 	if (!x)
 	{
-		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		pCtx->ThrowNativeError("TinyXml not found\n");
 		return 0;
 	}
 
@@ -505,12 +505,12 @@ static cell_t TinyXml_SetAttributeNum(IPluginContext *pCtx, const cell_t *params
 	
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
-		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
 	}
 
 	if (!x)
 	{
-		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		pCtx->ThrowNativeError("TinyXml not found\n");
 		return 0;
 	}
 
@@ -538,12 +538,12 @@ static cell_t TinyXml_SetAttributeFloat(IPluginContext *pCtx, const cell_t *para
 	
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
-		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
 	}
 
 	if (!x)
 	{
-		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		pCtx->ThrowNativeError("TinyXml not found\n");
 		return 0;
 	}
 
@@ -573,12 +573,12 @@ static cell_t TinyXml_AttributeName(IPluginContext *pCtx, const cell_t *params) 
 	
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
-		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
 	}
 
 	if (!x)
 	{
-		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		pCtx->ThrowNativeError("TinyXml not found\n");
 		return 0;
 	}
 
@@ -600,12 +600,12 @@ static cell_t TinyXml_AttributeValue(IPluginContext *pCtx, const cell_t *params)
 	
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
-		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
 	}
 
 	if (!x)
 	{
-		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		pCtx->ThrowNativeError("TinyXml not found\n");
 		return 0;
 	}
 
@@ -683,12 +683,12 @@ static cell_t TinyXml_Value(IPluginContext *pCtx, const cell_t *params) {
 	
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
-		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
 	}
 
 	if (!x)
 	{
-		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		pCtx->ThrowNativeError("TinyXml not found\n");
 		return 0;
 	}
 
