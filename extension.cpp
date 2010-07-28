@@ -852,7 +852,6 @@ static cell_t TinyXml_IsCDATA(IPluginContext *pCtx, const cell_t *params) {
 	return 0;	
 }
 
-
 static cell_t TinyXml_Parse(IPluginContext *pCtx, const cell_t *params)
 {
 	Handle_t hndl = static_cast<Handle_t>(params[1]);
@@ -879,6 +878,42 @@ static cell_t TinyXml_Parse(IPluginContext *pCtx, const cell_t *params)
 	
 	x->Parse(xmlstring);
 
+	return 1;	
+}
+
+static cell_t TinyXml_GetAttribute(IPluginContext *pCtx, const cell_t *params)
+{
+	Handle_t hndl = static_cast<Handle_t>(params[1]);
+	HandleError err;
+	HandleSecurity sec;
+	sec.pOwner = NULL;
+	sec.pIdentity = myself->GetIdentity();
+
+	TiXmlNode *x;
+
+	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
+	{
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
+	}
+
+	if (!x)
+	{
+		pCtx->ThrowNativeError("TinyXml data not found\n");
+		return 0;
+	}
+
+	if(x->Type() == TiXmlNode::TINYXML_ELEMENT) {
+		TiXmlElement *y = x->ToElement();
+		char *xmlstring;
+		pCtx->LocalToString(params[2], &xmlstring);
+		//g_pSM->LogMessage(myself, "We are an Element and looking for attribute %s", xmlstring);
+		char buffer[2048];
+		snprintf(buffer, sizeof(buffer), "%s", y->Attribute(xmlstring));
+		pCtx->StringToLocal(params[3], params[4], buffer);
+
+		return strlen(y->Attribute(xmlstring));
+	}
+	
 	return 1;	
 }
 
@@ -921,6 +956,7 @@ const sp_nativeinfo_t tinyxml_natives[] =
 	{"TinyXml_RootElement",	TinyXml_RootElement},	
 	{"TinyXml_FirstChildElement",	TinyXml_FirstChildElement},
 	{"TinyXml_NextSiblingElement",	TinyXml_NextSiblingElement},
+	{"TinyXml_GetAttribute",	TinyXml_GetAttribute},
 	
 	//Nodes
 	{"TinyXml_Type",	TinyXml_Type},
