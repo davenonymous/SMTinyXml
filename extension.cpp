@@ -458,6 +458,110 @@ static cell_t TinyXml_Type(IPluginContext *pCtx, const cell_t *params) {
 	return x->Type();
 }
 
+static cell_t TinyXml_SetAttribute(IPluginContext *pCtx, const cell_t *params) {
+	Handle_t hndl = static_cast<Handle_t>(params[1]);
+	HandleError err;
+	HandleSecurity sec;
+	sec.pOwner = NULL;
+	sec.pIdentity = myself->GetIdentity();
+
+	TiXmlNode *x;
+	
+	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
+	{
+		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+	}
+
+	if (!x)
+	{
+		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		return 0;
+	}
+
+	if(x->Type() == TiXmlNode::TINYXML_ELEMENT) {
+		TiXmlElement *y = x->ToElement();
+
+		char *key;
+		pCtx->LocalToString(params[2], &key);
+
+		char *value;
+		pCtx->LocalToString(params[3], &value);
+
+		y->SetAttribute(key,value);
+		return 1;
+	}
+
+	return 0;
+}
+
+static cell_t TinyXml_SetAttributeNum(IPluginContext *pCtx, const cell_t *params) {
+	Handle_t hndl = static_cast<Handle_t>(params[1]);
+	HandleError err;
+	HandleSecurity sec;
+	sec.pOwner = NULL;
+	sec.pIdentity = myself->GetIdentity();
+
+	TiXmlNode *x;
+	
+	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
+	{
+		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+	}
+
+	if (!x)
+	{
+		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		return 0;
+	}
+
+	if(x->Type() == TiXmlNode::TINYXML_ELEMENT) {
+		TiXmlElement *y = x->ToElement();
+
+		char *key;
+		pCtx->LocalToString(params[2], &key);
+
+		y->SetAttribute(key,params[3]);
+		return 1;
+	}
+
+	return 0;
+}
+
+static cell_t TinyXml_SetAttributeFloat(IPluginContext *pCtx, const cell_t *params) {
+	Handle_t hndl = static_cast<Handle_t>(params[1]);
+	HandleError err;
+	HandleSecurity sec;
+	sec.pOwner = NULL;
+	sec.pIdentity = myself->GetIdentity();
+
+	TiXmlNode *x;
+	
+	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
+	{
+		return pCtx->ThrowNativeError("Invalid TinyXml ele handle %x (error %d)", hndl, err);
+	}
+
+	if (!x)
+	{
+		pCtx->ThrowNativeError("TinyXml ele not found\n");
+		return 0;
+	}
+
+	if(x->Type() == TiXmlNode::TINYXML_ELEMENT) {
+		TiXmlElement *y = x->ToElement();
+
+		char *key;
+		pCtx->LocalToString(params[2], &key);
+
+		float value = sp_ctof(params[3]);
+
+		y->SetAttribute(key,value);
+		return 1;
+	}
+
+	return 0;
+}
+
 static cell_t TinyXml_AttributeName(IPluginContext *pCtx, const cell_t *params) {
 	Handle_t hndl = static_cast<Handle_t>(params[1]);
 	HandleError err;
@@ -616,24 +720,34 @@ void TinyXmlHandler::OnHandleDestroy(HandleType_t type, void *object)
 
 const sp_nativeinfo_t tinyxml_natives[] = 
 {
-	{"TinyXml_Version",	TinyXml_Version},	
+	{"TinyXml_Version",	TinyXml_Version},
 	{"TinyXml_CreateDocument",	TinyXml_CreateDocument},
-	
 	{"TinyXml_CreateElement",	TinyXml_CreateElement},
 	{"TinyXml_CreateText",	TinyXml_CreateText},
 	{"TinyXml_CreateComment",	TinyXml_CreateComment},
-	{"TinyXml_CreateDeclaration",	TinyXml_CreateDeclaration},
+	{"TinyXml_CreateDeclaration",	TinyXml_CreateDeclaration},	
+	
+	//Documents
 	{"TinyXml_LoadFile",	TinyXml_LoadFile},
 	{"TinyXml_SaveFile",	TinyXml_SaveFile},
-	{"TinyXml_LinkEndChild",	TinyXml_LinkEndChild},
-	{"TinyXml_RootElement",	TinyXml_RootElement},
+
+	//Elements
+	{"TinyXml_GetText",	TinyXml_GetText},
+	{"TinyXml_RootElement",	TinyXml_RootElement},	
 	{"TinyXml_FirstChildElement",	TinyXml_FirstChildElement},
 	{"TinyXml_NextSiblingElement",	TinyXml_NextSiblingElement},
+	
+	//Nodes
+	{"TinyXml_Type",	TinyXml_Type},
 	{"TinyXml_FirstChild",	TinyXml_FirstChild},
 	{"TinyXml_NextSibling",	TinyXml_NextSibling},
-	{"TinyXml_Value",	TinyXml_Value},		
-	{"TinyXml_GetText",	TinyXml_GetText},
-	{"TinyXml_Type",	TinyXml_Type},
+	{"TinyXml_Value",	TinyXml_Value},
+	{"TinyXml_LinkEndChild",	TinyXml_LinkEndChild},
+
+	//Attributes
+	{"TinyXml_SetAttribute",	TinyXml_SetAttribute},
+	{"TinyXml_SetAttributeNum",	TinyXml_SetAttributeNum},
+	{"TinyXml_SetAttributeFloat",	TinyXml_SetAttributeFloat},
 	{"TinyXml_FirstAttribute",	TinyXml_FirstAttribute},
 	{"TinyXml_NextAttribute",	TinyXml_NextAttribute},
 	{"TinyXml_AttributeValue",	TinyXml_AttributeValue},
