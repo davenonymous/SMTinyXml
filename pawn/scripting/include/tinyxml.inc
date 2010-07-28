@@ -10,8 +10,6 @@ enum NodeType
 };
 
 
-native TinyXml_Version();
-
 native Handle:TinyXml_CreateDocument();
 native Handle:TinyXml_CreateElement(String:name[]);
 native Handle:TinyXml_CreateText(String:text[]);
@@ -44,6 +42,10 @@ native TinyXml_AttributeName(Handle:node, String:dest[], length);
 native TinyXml_AttributeValue(Handle:node, String:dest[], length);
 native TinyXml_AttributeValueNum(Handle:node);
 native Float:TinyXml_AttributeValueFloat(Handle:node);
+
+native TinyXml_Version(Handle:declaration, String:dest[], length);
+native TinyXml_Encoding(Handle:declaration, String:dest[], length);
+native TinyXml_Standalone(Handle:declaration, String:dest[], length);
 
 
 /**
