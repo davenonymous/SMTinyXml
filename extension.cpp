@@ -792,6 +792,35 @@ static cell_t TinyXml_Standalone(IPluginContext *pCtx, const cell_t *params) {
 	return 0;	
 }
 
+static cell_t TinyXml_Parse(IPluginContext *pCtx, const cell_t *params)
+{
+	Handle_t hndl = static_cast<Handle_t>(params[1]);
+	HandleError err;
+	HandleSecurity sec;
+	sec.pOwner = NULL;
+	sec.pIdentity = myself->GetIdentity();
+
+	TiXmlDocument *x;
+
+	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
+	{
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
+	}
+
+	if (!x)
+	{
+		pCtx->ThrowNativeError("TinyXml data not found\n");
+		return 0;
+	}
+
+	char *xmlstring;
+	pCtx->LocalToString(params[2], &xmlstring);
+	
+	x->Parse(xmlstring);
+
+	return 1;	
+}
+
 bool SMTinyXML::SDK_OnLoad(char *error, size_t err_max, bool late)
 {
 	sharesys->AddNatives(myself, tinyxml_natives);
@@ -807,7 +836,7 @@ void SMTinyXML::SDK_OnUnload()
 
 void TinyXmlHandler::OnHandleDestroy(HandleType_t type, void *object)
 {
-	//TiXmlNode *x = (TiXmlDocument *)object;
+	//TiXmlNode *x = (TiXmlNode *)object;
 	//delete x;
 }
 
@@ -817,7 +846,8 @@ const sp_nativeinfo_t tinyxml_natives[] =
 	{"TinyXml_CreateDocument",	TinyXml_CreateDocument},
 	{"TinyXml_LoadFile",	TinyXml_LoadFile},
 	{"TinyXml_SaveFile",	TinyXml_SaveFile},	
-
+	{"TinyXml_Parse",	TinyXml_Parse},	
+	
 	//Declaration
 	{"TinyXml_CreateDeclaration",	TinyXml_CreateDeclaration},	
 	{"TinyXml_Version",	TinyXml_Version},

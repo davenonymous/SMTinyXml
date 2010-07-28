@@ -16,6 +16,7 @@ native Handle:TinyXml_CreateText(String:text[]);
 native Handle:TinyXml_CreateComment(String:text[]);
 native Handle:TinyXml_CreateDeclaration(String:version[]="1.0",String:encoding[]="",String:standalone[]="");
 
+native TinyXml_Parse(Handle:doc, String:xmldata[]);
 native TinyXml_LoadFile(Handle:doc, String:filename[]);
 native TinyXml_SaveFile(Handle:doc, String:filename[]);
 
