@@ -8,7 +8,6 @@ public OnPluginStart() {
 
 stock CreateTestXML() {
 	new Handle:hTxDoc = TinyXml_CreateDocument();
-	LogMessage("Document handle: %i", hTxDoc);
 	new Handle:hTxDecl = TinyXml_CreateDeclaration("1.0","","");
 	new Handle:hTxCmt = TinyXml_CreateComment("This is a comment");
 	new Handle:hTxEle = TinyXml_CreateElement("Hello");
@@ -21,7 +20,7 @@ stock CreateTestXML() {
 	TinyXml_LinkEndChild(hTxDoc, hTxEle);
 	TinyXml_LinkEndChild(hTxDoc, hTxCmt);
 
-	TinyXml_SaveFile(hTxDoc, "./text_sm.xml");
+	TinyXml_SaveFile(hTxDoc, "./test_sm.xml");
 
 	CloseHandle(hTxDoc);
 }

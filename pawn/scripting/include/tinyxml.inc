@@ -37,8 +37,10 @@ native TinyXml_Type(Handle:node);
 native TinyXml_Value(Handle:node, String:dest[], length);
 native TinyXml_GetText(Handle:node, String:dest[], length);
 
-native TinyXml_AttributeValue(Handle:node, String:dest[], length);
 native TinyXml_AttributeName(Handle:node, String:dest[], length);
+native TinyXml_AttributeValue(Handle:node, String:dest[], length);
+native TinyXml_AttributeValueNum(Handle:node);
+native Float:TinyXml_AttributeValueFloat(Handle:node);
 
 
 /**

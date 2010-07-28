@@ -512,6 +512,62 @@ static cell_t TinyXml_AttributeValue(IPluginContext *pCtx, const cell_t *params)
 	return strlen(x->Name());
 }
 
+static cell_t TinyXml_AttributeValueNum(IPluginContext *pCtx, const cell_t *params) {
+	Handle_t hndl = static_cast<Handle_t>(params[1]);
+	HandleError err;
+	HandleSecurity sec;
+	sec.pOwner = NULL;
+	sec.pIdentity = myself->GetIdentity();
+
+	TiXmlAttribute *x;
+	
+	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
+	{
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
+	}
+
+	if (!x)
+	{
+		pCtx->ThrowNativeError("TinyXml not found\n");
+		return 0;
+	}
+	int iValue;
+	if(x->QueryIntValue(&iValue) == TIXML_SUCCESS) {
+		return iValue;
+	}
+
+	return 0;
+}
+
+static cell_t TinyXml_AttributeValueFloat(IPluginContext *pCtx, const cell_t *params) {
+	Handle_t hndl = static_cast<Handle_t>(params[1]);
+	HandleError err;
+	HandleSecurity sec;
+	sec.pOwner = NULL;
+	sec.pIdentity = myself->GetIdentity();
+
+	TiXmlAttribute *x;
+	
+	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
+	{
+		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
+	}
+
+	if (!x)
+	{
+		pCtx->ThrowNativeError("TinyXml not found\n");
+		return 0;
+	}
+
+	double dValue;
+	if(x->QueryDoubleValue(&dValue) == TIXML_SUCCESS) {
+		float fValue = (float) dValue;
+		return sp_ftoc(fValue);
+	}
+
+	return 0;
+}
+
 static cell_t TinyXml_Value(IPluginContext *pCtx, const cell_t *params) {
 	Handle_t hndl = static_cast<Handle_t>(params[1]);
 	HandleError err;
@@ -581,6 +637,8 @@ const sp_nativeinfo_t tinyxml_natives[] =
 	{"TinyXml_FirstAttribute",	TinyXml_FirstAttribute},
 	{"TinyXml_NextAttribute",	TinyXml_NextAttribute},
 	{"TinyXml_AttributeValue",	TinyXml_AttributeValue},
+	{"TinyXml_AttributeValueNum",	TinyXml_AttributeValueNum},
+	{"TinyXml_AttributeValueFloat",	TinyXml_AttributeValueFloat},
 	{"TinyXml_AttributeName",	TinyXml_AttributeName},	
 
 	{NULL,			NULL},
