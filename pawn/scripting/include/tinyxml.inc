@@ -26,7 +26,7 @@ native Handle:TinyXml_RootElement(Handle:doc);
 native Handle:TinyXml_FirstChildElement(Handle:node, String:search[]="");
 native Handle:TinyXml_NextSiblingElement(Handle:node, String:search[]="");
 native Handle:TinyXml_FirstChild(Handle:node, String:search[]="");
-native Handle:TinyXml_NextSibling(Handle:node, , String:search[]="");
+native Handle:TinyXml_NextSibling(Handle:node, String:search[]="");
 
 native Handle:TinyXml_FirstAttribute(Handle:node);
 native Handle:TinyXml_NextAttribute(Handle:node);
