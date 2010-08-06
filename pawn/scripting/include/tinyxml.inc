@@ -51,6 +51,55 @@ native TinyXml_Standalone(Handle:declaration, String:dest[], length);
 
 native bool:TinyXml_IsCDATA(Handle:text);
 
+stock KeyValuesToXML(Handle:kv, String:fileout[], bool:bPairsAsAttributes = true) {
+	//Create Header
+	new Handle:hTxDoc = TinyXml_CreateDocument();
+	new Handle:hTxDecl = TinyXml_CreateDeclaration("1.0","","");
+	new Handle:hTxCmt = TinyXml_CreateComment(" This file is an import from a keyvalues structure ");
+	TinyXml_LinkEndChild(hTxDoc, hTxDecl);
+	TinyXml_LinkEndChild(hTxDoc, hTxCmt);
+
+	//Traverse the keyvalues structure
+	IterateKeyValues(kv, hTxDoc, bPairsAsAttributes);
+
+	//Save file
+	TinyXml_SaveFile(hTxDoc, fileout);
+}
+
+IterateKeyValues(&Handle:kv, &Handle:doc, bool:bPairsAsAttributes = true)
+{
+	do
+	{
+		new String:sSection[255];
+		KvGetSectionName(kv, sSection, sizeof(sSection));
+
+		new String:sValue[255];
+		KvGetString(kv, "", sValue, sizeof(sValue));
+		if(!StrEqual(sValue, "")) {
+			//We have a value, so this is a pair
+			if(bPairsAsAttributes) {
+				TinyXml_SetAttribute(doc, sSection, sValue);
+			} else {
+				new Handle:hTxEle = TinyXml_CreateElement(sSection);
+				new Handle:hTxText = TinyXml_CreateText(sValue);
+				TinyXml_LinkEndChild(hTxEle, hTxText);
+				TinyXml_LinkEndChild(doc, hTxEle);
+			}
+		} else {
+			//We have no value, this must be another section
+			new Handle:hTxEle = TinyXml_CreateElement(sSection);
+			if (KvGotoFirstSubKey(kv, false))
+			{
+
+				IterateKeyValues(kv, hTxEle, bPairsAsAttributes);
+				KvGoBack(kv);
+			}
+			TinyXml_LinkEndChild(doc, hTxEle);
+		}
+
+	} while (KvGotoNextKey(kv, false));
+}
+
 /**
  * Do not edit below this line!
  */

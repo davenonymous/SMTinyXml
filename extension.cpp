@@ -450,12 +450,16 @@ static cell_t TinyXml_GetText(IPluginContext *pCtx, const cell_t *params) {
 
 	if(x->Type() == TiXmlNode::TINYXML_ELEMENT) {
 		TiXmlElement *y = x->ToElement();
-	
-		char buffer[2048];
-		snprintf(buffer, sizeof(buffer), "%s", y->GetText());
-		pCtx->StringToLocal(params[2], params[3], buffer);
+		const char *text;
+		text = y->GetText();
+		if(text == NULL)
+			return 0;
 
-		return strlen(y->GetText());
+		char buffer[2048];
+		snprintf(buffer, sizeof(buffer), "%s", text);	
+		pCtx->StringToLocal(params[2], params[3], buffer);
+		
+		return strlen(text);
 	} else {
 		return 0;
 	}
