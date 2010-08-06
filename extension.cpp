@@ -936,7 +936,7 @@ bool SMTinyXML::SDK_OnLoad(char *error, size_t err_max, bool late)
 {
 	sharesys->AddNatives(myself, tinyxml_natives);
 	g_TinyXmlHandle = g_pHandleSys->CreateType("TinyXml", &g_TinyXmlHandler, 0, NULL, NULL, myself->GetIdentity(), NULL);
-
+	
 	return true;
 }
 
@@ -947,7 +947,8 @@ void SMTinyXML::SDK_OnUnload()
 
 void TinyXmlHandler::OnHandleDestroy(HandleType_t type, void *object)
 {
-	//TiXmlNode *x = (TiXmlNode *)object;
+	TiXmlNode *x = (TiXmlNode *)object;
+	x->Clear();
 	//delete x;
 }
 

@@ -64,6 +64,9 @@ stock KeyValuesToXML(Handle:kv, String:fileout[], bool:bPairsAsAttributes = true
 
 	//Save file
 	TinyXml_SaveFile(hTxDoc, fileout);
+	CloseHandle(hTxDecl);
+	CloseHandle(hTxCmt);
+	CloseHandle(hTxDoc);
 }
 
 IterateKeyValues(&Handle:kv, &Handle:doc, bool:bPairsAsAttributes = true)
@@ -84,6 +87,8 @@ IterateKeyValues(&Handle:kv, &Handle:doc, bool:bPairsAsAttributes = true)
 				new Handle:hTxText = TinyXml_CreateText(sValue);
 				TinyXml_LinkEndChild(hTxEle, hTxText);
 				TinyXml_LinkEndChild(doc, hTxEle);
+				CloseHandle(hTxEle);
+				CloseHandle(hTxText);
 			}
 		} else {
 			//We have no value, this must be another section
@@ -95,6 +100,7 @@ IterateKeyValues(&Handle:kv, &Handle:doc, bool:bPairsAsAttributes = true)
 				KvGoBack(kv);
 			}
 			TinyXml_LinkEndChild(doc, hTxEle);
+			CloseHandle(hTxEle);
 		}
 
 	} while (KvGotoNextKey(kv, false));
