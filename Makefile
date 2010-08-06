@@ -14,7 +14,7 @@ MMSOURCE18 = ../../forBuild/mmsource-1.8
 ### EDIT BELOW FOR OTHER PROJECTS ###
 #####################################
 
-PROJECT = TinyXML
+PROJECT = tinyxml
 
 #Uncomment for Metamod: Source enabled extension
 #USEMETA = true
