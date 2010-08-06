@@ -722,11 +722,17 @@ static cell_t TinyXml_Value(IPluginContext *pCtx, const cell_t *params) {
 		return 0;
 	}
 
+	const char *text;
+	text = x->Value();
+
+	if(text == NULL)
+		return 0;
+
 	char buffer[2048];
-	snprintf(buffer, sizeof(buffer), "%s", x->Value());
+	snprintf(buffer, sizeof(buffer), "%s", text);
 	pCtx->StringToLocal(params[2], params[3], buffer);
 
-	return strlen(x->Value());
+	return strlen(text);
 }
 
 static cell_t TinyXml_Version(IPluginContext *pCtx, const cell_t *params) {
@@ -910,12 +916,17 @@ static cell_t TinyXml_GetAttribute(IPluginContext *pCtx, const cell_t *params)
 		TiXmlElement *y = x->ToElement();
 		char *xmlstring;
 		pCtx->LocalToString(params[2], &xmlstring);
-		//g_pSM->LogMessage(myself, "We are an Element and looking for attribute %s", xmlstring);
+
+		const char *text;
+		text = y->Attribute(xmlstring);
+		if(text == NULL)
+			return 0;
+				
 		char buffer[2048];
-		snprintf(buffer, sizeof(buffer), "%s", y->Attribute(xmlstring));
+		snprintf(buffer, sizeof(buffer), "%s", text);
 		pCtx->StringToLocal(params[3], params[4], buffer);
 
-		return strlen(y->Attribute(xmlstring));
+		return strlen(text);
 	}
 	
 	return 1;	
