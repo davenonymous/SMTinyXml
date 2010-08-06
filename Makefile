@@ -1,25 +1,25 @@
 # (C)2004-2010 SourceMod Development Team
 # Makefile written by David "BAILOPAN" Anderson
 
-SMSDK = ../..
-SRCDS_BASE = ~/srcds
-HL2SDK_ORIG = ../../../hl2sdk
-HL2SDK_OB = ../../../hl2sdk-ob
-HL2SDK_OB_VALVE = ../../../hl2sdk-ob-valve
-HL2SDK_L4D = ../../../hl2sdk-l4d
-HL2SDK_L4D2 = ../../../hl2sdk-l4d2
-MMSOURCE18 = ../../../mmsource-1.8
+SMSDK = ../../forBuild/sourcemod-1-3-4
+SRCDS_BASE = ../../../srcds
+HL2SDK_ORIG = ../../forBuild/hl2sdk
+HL2SDK_OB = ../../forBuild/hl2sdk-ob
+HL2SDK_OB_VALVE = ../../forBuild/hl2sdk-ob-valve
+HL2SDK_L4D = ../../forBuild/hl2sdk-l4d
+HL2SDK_L4D2 = ../../forBuild/hl2sdk-l4d2
+MMSOURCE18 = ../../forBuild/mmsource-1.8
 
 #####################################
 ### EDIT BELOW FOR OTHER PROJECTS ###
 #####################################
 
-PROJECT = sample
+PROJECT = TinyXML
 
 #Uncomment for Metamod: Source enabled extension
 #USEMETA = true
 
-OBJECTS = sdk/smsdk_ext.cpp extension.cpp
+OBJECTS = sdk/smsdk_ext.cpp extension.cpp tinystr.cpp tinyxml.cpp tinyxmlerror.cpp tinyxmlparser.cpp
 
 ##############################################
 ### CONFIGURE ANY OTHER FLAGS/OPTIONS HERE ###
