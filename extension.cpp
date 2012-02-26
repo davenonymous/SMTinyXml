@@ -8,7 +8,7 @@
  * This program is free software; you can redistribute it and/or modify it under
  * the terms of the GNU General Public License, version 3.0, as published by the
  * Free Software Foundation.
- * 
+ *
  * This program is distributed in the hope that it will be useful, but WITHOUT
  * ANY WARRANTY; without even the implied warranty of MERCHANTABILITY or FITNESS
  * FOR A PARTICULAR PURPOSE.  See the GNU General Public License for more
@@ -108,10 +108,10 @@ static cell_t TinyXml_LoadFile(IPluginContext *pCtx, const cell_t *params)
 
 	char *xmlfile;
 	pCtx->LocalToString(params[2], &xmlfile);
-	
+
 	bool ok = x->LoadFile(xmlfile);
 
-	return ok;	
+	return ok;
 }
 
 static cell_t TinyXml_SaveFile(IPluginContext *pCtx, const cell_t *params)
@@ -137,10 +137,10 @@ static cell_t TinyXml_SaveFile(IPluginContext *pCtx, const cell_t *params)
 
 	char *xmlfile;
 	pCtx->LocalToString(params[2], &xmlfile);
-	
+
 	bool ok = x->SaveFile(xmlfile);
 
-	return ok;	
+	return ok;
 }
 
 static cell_t TinyXml_RootElement(IPluginContext *pCtx, const cell_t *params)
@@ -163,7 +163,7 @@ static cell_t TinyXml_RootElement(IPluginContext *pCtx, const cell_t *params)
 		pCtx->ThrowNativeError("TinyXml data not found\n");
 		return 0;
 	}
-	
+
 	TiXmlNode *root = x->RootElement();
 
 	if(root == NULL) {
@@ -239,7 +239,7 @@ static cell_t TinyXml_FirstChildElement(IPluginContext *pCtx, const cell_t *para
 	} else {
 		child = x->FirstChildElement(search);
 	}
-	
+
 	if(child == NULL) {
 		return 0;
 	} else {
@@ -360,10 +360,10 @@ static cell_t TinyXml_LinkEndChild(IPluginContext *pCtx, const cell_t *params)
 		pCtx->ThrowNativeError("TinyXml not found\n");
 		return 0;
 	}
-	
+
 	x->LinkEndChild(y);
 
-	return true;	
+	return true;
 }
 
 static cell_t TinyXml_FirstAttribute(IPluginContext *pCtx, const cell_t *params) {
@@ -393,7 +393,7 @@ static cell_t TinyXml_FirstAttribute(IPluginContext *pCtx, const cell_t *params)
 			return 0;
 		} else {
 			return g_pHandleSys->CreateHandle(g_TinyXmlHandle, (void*)attribute, pCtx->GetIdentity(), myself->GetIdentity(), NULL);
-		}		
+		}
 	} else {
 		return 0;
 	}
@@ -425,7 +425,7 @@ static cell_t TinyXml_NextAttribute(IPluginContext *pCtx, const cell_t *params) 
 		return 0;
 	} else {
 		return g_pHandleSys->CreateHandle(g_TinyXmlHandle, (void*)attribute, pCtx->GetIdentity(), myself->GetIdentity(), NULL);
-	}		
+	}
 }
 
 static cell_t TinyXml_GetText(IPluginContext *pCtx, const cell_t *params) {
@@ -456,9 +456,9 @@ static cell_t TinyXml_GetText(IPluginContext *pCtx, const cell_t *params) {
 			return 0;
 
 		char buffer[2048];
-		snprintf(buffer, sizeof(buffer), "%s", text);	
+		snprintf(buffer, sizeof(buffer), "%s", text);
 		pCtx->StringToLocal(params[2], params[3], buffer);
-		
+
 		return strlen(text);
 	} else {
 		return 0;
@@ -496,7 +496,7 @@ static cell_t TinyXml_SetAttribute(IPluginContext *pCtx, const cell_t *params) {
 	sec.pIdentity = myself->GetIdentity();
 
 	TiXmlNode *x;
-	
+
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
 		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
@@ -532,7 +532,7 @@ static cell_t TinyXml_SetAttributeNum(IPluginContext *pCtx, const cell_t *params
 	sec.pIdentity = myself->GetIdentity();
 
 	TiXmlNode *x;
-	
+
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
 		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
@@ -565,7 +565,7 @@ static cell_t TinyXml_SetAttributeFloat(IPluginContext *pCtx, const cell_t *para
 	sec.pIdentity = myself->GetIdentity();
 
 	TiXmlNode *x;
-	
+
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
 		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
@@ -600,7 +600,7 @@ static cell_t TinyXml_AttributeName(IPluginContext *pCtx, const cell_t *params) 
 	sec.pIdentity = myself->GetIdentity();
 
 	TiXmlAttribute *x;
-	
+
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
 		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
@@ -627,7 +627,7 @@ static cell_t TinyXml_AttributeValue(IPluginContext *pCtx, const cell_t *params)
 	sec.pIdentity = myself->GetIdentity();
 
 	TiXmlAttribute *x;
-	
+
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
 		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
@@ -654,7 +654,7 @@ static cell_t TinyXml_AttributeValueNum(IPluginContext *pCtx, const cell_t *para
 	sec.pIdentity = myself->GetIdentity();
 
 	TiXmlAttribute *x;
-	
+
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
 		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
@@ -681,7 +681,7 @@ static cell_t TinyXml_AttributeValueFloat(IPluginContext *pCtx, const cell_t *pa
 	sec.pIdentity = myself->GetIdentity();
 
 	TiXmlAttribute *x;
-	
+
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
 		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
@@ -710,7 +710,7 @@ static cell_t TinyXml_Value(IPluginContext *pCtx, const cell_t *params) {
 	sec.pIdentity = myself->GetIdentity();
 
 	TiXmlNode *x;
-	
+
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
 		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
@@ -743,7 +743,7 @@ static cell_t TinyXml_Version(IPluginContext *pCtx, const cell_t *params) {
 	sec.pIdentity = myself->GetIdentity();
 
 	TiXmlNode *x;
-	
+
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
 		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
@@ -757,7 +757,7 @@ static cell_t TinyXml_Version(IPluginContext *pCtx, const cell_t *params) {
 
 	if(x->Type() == TiXmlNode::TINYXML_DECLARATION) {
 		TiXmlDeclaration *y = x->ToDeclaration();
-		
+
 		char buffer[2048];
 		snprintf(buffer, sizeof(buffer), "%s", y->Version());
 		pCtx->StringToLocal(params[2], params[3], buffer);
@@ -765,7 +765,7 @@ static cell_t TinyXml_Version(IPluginContext *pCtx, const cell_t *params) {
 		return strlen(y->Version());
 	}
 
-	return 0;	
+	return 0;
 }
 
 static cell_t TinyXml_Encoding(IPluginContext *pCtx, const cell_t *params) {
@@ -776,7 +776,7 @@ static cell_t TinyXml_Encoding(IPluginContext *pCtx, const cell_t *params) {
 	sec.pIdentity = myself->GetIdentity();
 
 	TiXmlNode *x;
-	
+
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
 		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
@@ -790,7 +790,7 @@ static cell_t TinyXml_Encoding(IPluginContext *pCtx, const cell_t *params) {
 
 	if(x->Type() == TiXmlNode::TINYXML_DECLARATION) {
 		TiXmlDeclaration *y = x->ToDeclaration();
-		
+
 		char buffer[2048];
 		snprintf(buffer, sizeof(buffer), "%s", y->Encoding());
 		pCtx->StringToLocal(params[2], params[3], buffer);
@@ -798,7 +798,7 @@ static cell_t TinyXml_Encoding(IPluginContext *pCtx, const cell_t *params) {
 		return strlen(y->Encoding());
 	}
 
-	return 0;	
+	return 0;
 }
 
 static cell_t TinyXml_Standalone(IPluginContext *pCtx, const cell_t *params) {
@@ -809,7 +809,7 @@ static cell_t TinyXml_Standalone(IPluginContext *pCtx, const cell_t *params) {
 	sec.pIdentity = myself->GetIdentity();
 
 	TiXmlNode *x;
-	
+
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
 		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
@@ -823,7 +823,7 @@ static cell_t TinyXml_Standalone(IPluginContext *pCtx, const cell_t *params) {
 
 	if(x->Type() == TiXmlNode::TINYXML_DECLARATION) {
 		TiXmlDeclaration *y = x->ToDeclaration();
-		
+
 		char buffer[2048];
 		snprintf(buffer, sizeof(buffer), "%s", y->Standalone());
 		pCtx->StringToLocal(params[2], params[3], buffer);
@@ -831,7 +831,7 @@ static cell_t TinyXml_Standalone(IPluginContext *pCtx, const cell_t *params) {
 		return strlen(y->Standalone());
 	}
 
-	return 0;	
+	return 0;
 }
 
 static cell_t TinyXml_IsCDATA(IPluginContext *pCtx, const cell_t *params) {
@@ -842,7 +842,7 @@ static cell_t TinyXml_IsCDATA(IPluginContext *pCtx, const cell_t *params) {
 	sec.pIdentity = myself->GetIdentity();
 
 	TiXmlNode *x;
-	
+
 	if ((err=g_pHandleSys->ReadHandle(hndl, g_TinyXmlHandle, &sec, (void **)&x)) != HandleError_None)
 	{
 		return pCtx->ThrowNativeError("Invalid TinyXml handle %x (error %d)", hndl, err);
@@ -855,11 +855,11 @@ static cell_t TinyXml_IsCDATA(IPluginContext *pCtx, const cell_t *params) {
 	}
 
 	if(x->Type() == TiXmlNode::TINYXML_TEXT) {
-		TiXmlText *y = x->ToText();		
+		TiXmlText *y = x->ToText();
 		return y->CDATA();
 	}
 
-	return 0;	
+	return 0;
 }
 
 static cell_t TinyXml_Parse(IPluginContext *pCtx, const cell_t *params)
@@ -885,10 +885,10 @@ static cell_t TinyXml_Parse(IPluginContext *pCtx, const cell_t *params)
 
 	char *xmlstring;
 	pCtx->LocalToString(params[2], &xmlstring);
-	
+
 	x->Parse(xmlstring);
 
-	return 1;	
+	return 1;
 }
 
 static cell_t TinyXml_GetAttribute(IPluginContext *pCtx, const cell_t *params)
@@ -921,22 +921,24 @@ static cell_t TinyXml_GetAttribute(IPluginContext *pCtx, const cell_t *params)
 		text = y->Attribute(xmlstring);
 		if(text == NULL)
 			return 0;
-				
+
 		char buffer[2048];
 		snprintf(buffer, sizeof(buffer), "%s", text);
 		pCtx->StringToLocal(params[3], params[4], buffer);
 
 		return strlen(text);
 	}
-	
-	return 1;	
+
+	return 1;
 }
 
 bool SMTinyXML::SDK_OnLoad(char *error, size_t err_max, bool late)
 {
 	sharesys->AddNatives(myself, tinyxml_natives);
+	sharesys->RegisterLibrary(myself, "tinyxml");
+
 	g_TinyXmlHandle = g_pHandleSys->CreateType("TinyXml", &g_TinyXmlHandler, 0, NULL, NULL, myself->GetIdentity(), NULL);
-	
+
 	return true;
 }
 
@@ -952,16 +954,16 @@ void TinyXmlHandler::OnHandleDestroy(HandleType_t type, void *object)
 	//delete x;
 }
 
-const sp_nativeinfo_t tinyxml_natives[] = 
-{		
+const sp_nativeinfo_t tinyxml_natives[] =
+{
 	//Documents
 	{"TinyXml_CreateDocument",	TinyXml_CreateDocument},
 	{"TinyXml_LoadFile",	TinyXml_LoadFile},
-	{"TinyXml_SaveFile",	TinyXml_SaveFile},	
-	{"TinyXml_Parse",	TinyXml_Parse},	
-	
+	{"TinyXml_SaveFile",	TinyXml_SaveFile},
+	{"TinyXml_Parse",	TinyXml_Parse},
+
 	//Declaration
-	{"TinyXml_CreateDeclaration",	TinyXml_CreateDeclaration},	
+	{"TinyXml_CreateDeclaration",	TinyXml_CreateDeclaration},
 	{"TinyXml_Version",	TinyXml_Version},
 	{"TinyXml_Encoding",	TinyXml_Encoding},
 	{"TinyXml_Standalone",	TinyXml_Standalone},
@@ -969,11 +971,11 @@ const sp_nativeinfo_t tinyxml_natives[] =
 	//Elements
 	{"TinyXml_CreateElement",	TinyXml_CreateElement},
 	{"TinyXml_GetText",	TinyXml_GetText},
-	{"TinyXml_RootElement",	TinyXml_RootElement},	
+	{"TinyXml_RootElement",	TinyXml_RootElement},
 	{"TinyXml_FirstChildElement",	TinyXml_FirstChildElement},
 	{"TinyXml_NextSiblingElement",	TinyXml_NextSiblingElement},
 	{"TinyXml_GetAttribute",	TinyXml_GetAttribute},
-	
+
 	//Nodes
 	{"TinyXml_Type",	TinyXml_Type},
 	{"TinyXml_FirstChild",	TinyXml_FirstChild},
@@ -990,7 +992,7 @@ const sp_nativeinfo_t tinyxml_natives[] =
 	{"TinyXml_AttributeValue",	TinyXml_AttributeValue},
 	{"TinyXml_AttributeValueNum",	TinyXml_AttributeValueNum},
 	{"TinyXml_AttributeValueFloat",	TinyXml_AttributeValueFloat},
-	{"TinyXml_AttributeName",	TinyXml_AttributeName},	
+	{"TinyXml_AttributeName",	TinyXml_AttributeName},
 
 	//Others
 	{"TinyXml_CreateText",	TinyXml_CreateText},
